@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HACKA_OS</title>
+    <style>
+        body {
+            background: black;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 20px;
+            margin: 0;
+        }
+        #terminal {
+            white-space: pre-wrap;
+        }
+        .input {
+            outline: none;
+            background: transparent;
+            border: none;
+            color: #00ff00;
+            font-family: monospace;
+            width: 200px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="terminal"></div>
+    <div id="login" class="hidden">
+        Username: <input type="text" id="username" class="input"><br>
+        Password: <input type="password" id="password" class="input"><br>
+        <button onclick="authenticate()" style="margin-top: 10px">LOGIN</button>
+    </div>
+
+    <script>
+        const bootSequence = [
+            "HACKA_OS v1.0.0",
+            "Initializing system...",
+            "Loading kernel modules...",
+            "Checking system integrity...",
+            "Establishing secure connection...",
+            "Accessing mainframe...",
+            "CONNECTION ESTABLISHED",
+            "Please authenticate:"
+        ];
+
+        let currentLine = 0;
+
+        function getRandomDelay() {
+            return Math.random() * 1500 + 500; // Random delay between 500ms and 2000ms
+        }
+
+        function typeWriter() {
+            if (currentLine < bootSequence.length) {
+                document.getElementById("terminal").innerHTML += bootSequence[currentLine] + "\n";
+                currentLine++;
+                setTimeout(typeWriter, getRandomDelay());
+            } else {
+                document.getElementById("login").classList.remove("hidden");
+            }
+        }
+
+        function authenticate() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            if (username && password) {
+                window.location.href = "main-menu.html";
+            }
+        }
+
+        window.onload = typeWriter;
+    </script>
+</body>
+</html>

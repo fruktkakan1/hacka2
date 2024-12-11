@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HACKA_OS - MAIN</title>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 20px;
+            height: 95vh;
+        }
+
+        .header {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            border: 1px solid #0f0;
+        }
+
+        .system-info {
+            border: 1px solid #0f0;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        .quick-actions {
+            border: 1px solid #0f0;
+            padding: 10px;
+        }
+
+        .hack-button {
+            background: transparent;
+            border: 1px solid #0f0;
+            color: #0f0;
+            padding: 5px 10px;
+            margin: 5px;
+            cursor: pointer;
+            font-family: monospace;
+            transition: all 0.3s;
+        }
+
+        .hack-button:hover {
+            background: #0f0;
+            color: #000;
+        }
+
+        .status-monitor {
+            border: 1px solid #0f0;
+            padding: 10px;
+        }
+
+        .modules {
+            border: 1px solid #0f0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+        }
+
+        .module {
+            border: 1px solid #0f0;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module:hover {
+            background: #030;
+        }
+
+        .map-container {
+            border: 1px solid #0f0;
+            padding: 20px;
+            position: relative;
+        }
+
+        .world-map {
+            height: 100%;
+            width: 100%;
+            background: url('assets/worldmap.png') center/contain no-repeat;
+            position: relative;
+        }
+
+        .connection-point {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #0f0;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(2); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .mini-terminal {
+            border: 1px solid #0f0;
+            padding: 10px;
+            height: 100px;
+            overflow: hidden;
+            font-size: 12px;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            background: #0f0;
+            opacity: 0.5;
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100%); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="system-info">
+                SYSTEM INFO:<br>
+                CPU: 3.2GHz<br>
+                MEM: 16GB/32GB<br>
+                UPTIME: <span id="uptime">0:00:00</span><br>
+                ACTIVE CONNECTIONS: <span id="connections">0</span>
+            </div>
+            <div class="quick-actions">
+                QUICK ACTIONS:<br>
+                <button class="hack-button" onclick="alert('Scanning...')">SCAN NETWORK</button>
+                <button class="hack-button" onclick="alert('Trace started...')">TRACE IP</button>
+                <button class="hack-button" onclick="alert('Analyzing...')">ANALYZE TRAFFIC</button>
+                <button class="hack-button" onclick="alert('Initializing...')">PORT SCAN</button>
+                <button class="hack-button" onclick="alert('Connecting...')">SSH CONNECT</button>
+                <button class="hack-button" onclick="alert('Loading...')">PACKET CAPTURE</button>
+            </div>
+            <div class="status-monitor">
+                <div class="mini-terminal" id="terminal">
+                    > System initialized<br>
+                    > Monitoring network traffic<br>
+                    > Scanning for vulnerabilities<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="modules">
+            <div class="module">
+                <h3>Network Scanner</h3>
+                <p>Scan and analyze network traffic</p>
+                <small>STATUS: READY</small>
+            </div>
+            <div class="module">
+                <h3>Crypto Tool</h3>
+                <p>Encryption/Decryption utilities</p>
+                <small>STATUS: READY</small>
+            </div>
+            <div class="module">
+                <h3>Matrix Rain</h3>
+                <p>Classic digital rain animation</p>
+                <small>STATUS: READY</small>
+            </div>
+            <div class="module" style="opacity: 0.5">
+                <h3>Password Cracker</h3>
+                <p>Coming soon...</p>
+                <small>STATUS: LOCKED</small>
+            </div>
+            <div class="module" style="opacity: 0.5">
+                <h3>Data Miner</h3>
+                <p>Coming soon...</p>
+                <small>STATUS: LOCKED</small>
+            </div>
+            <div class="module" style="opacity: 0.5">
+                <h3>Neural Net</h3>
+                <p>Coming soon...</p>
+                <small>STATUS: LOCKED</small>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div class="world-map">
+                <div class="scan-line"></div>
+                <div class="connection-point" style="top: 30%; left: 20%"></div>
+                <div class="connection-point" style="top: 45%; left: 50%"></div>
+                <div class="connection-point" style="top: 60%; left: 80%"></div>
+                <div class="connection-point" style="top: 25%; left: 70%"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update uptime
+        setInterval(() => {
+            const uptimeEl = document.getElementById('uptime');
+            const [hours, minutes, seconds] = uptimeEl.textContent.split(':').map(Number);
+            let newSeconds = seconds + 1;
+            let newMinutes = minutes;
+            let newHours = hours;
+            
+            if (newSeconds >= 60) {
+                newSeconds = 0;
+                newMinutes++;
+                if (newMinutes >= 60) {
+                    newMinutes = 0;
+                    newHours++;
+                }
+            }
+            
+            uptimeEl.textContent = `${newHours}:${String(newMinutes).padStart(2, '0')}:${String(newSeconds).padStart(2, '0')}`;
+        }, 1000);
+
+        // Random connection count
+        setInterval(() => {
+            const connections = Math.floor(Math.random() * 100);
+            document.getElementById('connections').textContent = connections;
+        }, 5000);
+
+        // Add terminal messages
+        const messages = [
+            "> Packet analysis complete",
+            "> New connection detected",
+            "> Security scan in progress",
+            "> Database updated",
+            "> Network status: optimal"
+        ];
+
+        setInterval(() => {
+            const terminal = document.getElementById('terminal');
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            terminal.innerHTML = randomMessage + '<br>' + terminal.innerHTML;
+            if (terminal.innerHTML.split('<br>').length > 4) {
+                terminal.innerHTML = terminal.innerHTML.split('<br>').slice(0, 4).join('<br>');
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
